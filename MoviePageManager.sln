@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoviePageManager", "MoviePageManager\MoviePageManager.csproj", "{46A675C9-70F0-4BB5-B2B4-A89CC1AF0652}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Models", "Models\Models.csproj", "{AAA34096-F032-4B9D-B6D6-110AB6F019C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{46A675C9-70F0-4BB5-B2B4-A89CC1AF0652}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{46A675C9-70F0-4BB5-B2B4-A89CC1AF0652}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{46A675C9-70F0-4BB5-B2B4-A89CC1AF0652}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AAA34096-F032-4B9D-B6D6-110AB6F019C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AAA34096-F032-4B9D-B6D6-110AB6F019C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AAA34096-F032-4B9D-B6D6-110AB6F019C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AAA34096-F032-4B9D-B6D6-110AB6F019C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
