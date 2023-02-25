@@ -23,6 +23,7 @@ namespace MoviePageManager
 			var helpers = new Helpers.Helpers();
 			using var dbContext = new MovieDBContext();
 			var dbManager = new DbManager(dbContext);
+			var existsMovie = new MovieCheck(dbManager);
 
 
 			var prompt = helpers.firstPrompt();
@@ -33,6 +34,10 @@ namespace MoviePageManager
 			var choiceObj = JsonConvert.DeserializeObject<ResponseBody>(firstResponse).Choices[0].Text;
 
 			var movie = helpers.getMovieObj(choiceObj);
+
+			if (dbManager.getMovies().Count != 0)
+				if (existsMovie.existsMovie(movie.MovieName,movie.Year.ToString()))
+					return;
 
 			
 			dbManager.addMovie(movie);
