@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace Models.OpenAI
 {
-	internal class RequestBody
+	public class RequestBody
 	{
-
 		public string model { get; set; }
 		public string prompt { get; set; }
 		public int max_tokens { get; set; }
