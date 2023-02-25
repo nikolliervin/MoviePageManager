@@ -3,6 +3,7 @@ using System;
 using Models.OpenAI;
 using System.Configuration;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace MoviePageManager
 {
@@ -18,11 +19,13 @@ namespace MoviePageManager
 			var prompt = "Give me a movie name with a ration of over 8.5";
 
 
+			var response = await _openAIService.SendRequestAsync(prompt);
 
+			var choiceObj = JsonConvert.DeserializeObject<ResponseBody>(response).Choices[0];
 
+			var nextPromp = "Write a summary about the movie:" + choiceObj.Text + " without spoliers";
 
-			await _openAIService.SendRequestAsync(prompt);
-
+			var secondResp = await _openAIService.SendRequestAsync(nextPromp);
 
 		}
 	}
