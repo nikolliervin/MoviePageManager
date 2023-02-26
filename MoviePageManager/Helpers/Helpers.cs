@@ -1,4 +1,6 @@
-﻿using MoviePageManager.Data;
+﻿using Models.OpenAI;
+using MoviePageManager.Data;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -71,6 +73,12 @@ namespace MoviePageManager.Helpers
 				return responseDesc.Replace("\n\n", string.Empty);
 			return responseDesc;
 		}
+
+		public string deserializeToString(string response)
+		{
+			return JsonConvert.DeserializeObject<ResponseBody>(response).Choices[0].Text;
+		}
+
 
 	}
 

@@ -18,21 +18,17 @@ namespace MoviePageManager
 		static async Task Main(string[] args)
 		{
 			var openAIKey = Environment.GetEnvironmentVariable("openAIKey");
-
+			
 			var _openAIService = new OpenAIService(openAIKey);
 			var helpers = new Helpers.Helpers();
 			using var dbContext = new MovieDBContext();
 			var dbManager = new DbManager(dbContext);
 			var existsMovie = new MovieCheck(dbManager);
 
-
 			var prompt = helpers.firstPrompt();
 
-
 			var firstResponse = await _openAIService.SendRequestAsync(prompt);
-
-			var choiceObj = JsonConvert.DeserializeObject<ResponseBody>(firstResponse).Choices[0].Text;
-
+			var choiceObj = helpers.deserializeToString(firstResponse);
 			var movie = helpers.getMovieObj(choiceObj);
 
 			if (dbManager.getMovie().Count != 0)
@@ -40,22 +36,16 @@ namespace MoviePageManager
 				{
 					var newPrompt = helpers.genericPrompt(dbManager.getMovieNames());
 					var altResp = await _openAIService.SendRequestAsync(newPrompt);
-					var newChoiceObj = JsonConvert.DeserializeObject<ResponseBody>(altResp).Choices[0].Text;
+					var newChoiceObj = helpers.deserializeToString(altResp);
 					movie = helpers.getMovieObj(newChoiceObj);
 				}
 					
-					
-
-			
 			dbManager.addMovie(movie);
 
 			var nextPrompt = helpers.secondPrompt(movie.MovieName, movie.Year.ToString());
-
 			var secondResp = await _openAIService.SendRequestAsync(nextPrompt);
-
-			var descObj = JsonConvert.DeserializeObject<ResponseBody>(secondResp).Choices[0].Text;
-
-			helpers.getMovieDesc(descObj);
+			var descObj = helpers.deserializeToString(secondResp);
+			var desc = helpers.getMovieDesc(descObj);
 
 
 			
