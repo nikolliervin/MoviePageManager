@@ -1,26 +1,78 @@
-﻿using System;
+﻿using MoviePageManager.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MoviePageManager.Helpers
 {
-	public class PromptGenerator
-	{	
+	public class Helpers
+	{
 
 		public string firstPrompt()
 		{
 			return "Suggest me a random movie and its release year in this format Movie: , Year:";
 		}
-		public string secondPrompt(string movieName,string year)
+		public string secondPrompt(string movieName, string year)
 		{
 			return $"Write a thrilling description about {movieName} of year {year} without spolers";
 		}
 
-		public string uniqueMovieNamePrompt()
+		public string genericPrompt(List<string> movieNames)
 		{
-			return "";
+			var prompt = "Suggest me a movie in this format Movie: , Year: but not ";
+
+			foreach (var name in movieNames)
+			{
+				prompt = string.Concat(prompt, ",", name);
+			}
+
+			return prompt;
 		}
+
+		public Movie getMovieObj(string response)
+		{
+
+			int firstNewLineIndex = response.IndexOf("\n\n");
+			if (firstNewLineIndex == -1)
+			{
+				// fall back to the original code
+				int yearStartIndex = response.IndexOf("Year:") + 6;
+				string title = response.Substring(7, response.IndexOf(",") - 7).Trim();
+				string year = response.Substring(yearStartIndex).Trim();
+
+				return new Movie
+				{
+					MovieName = title,
+					Year = int.Parse(year)
+				};
+			}
+			else
+			{
+				// use the new code
+				var cleanedResp = response.Substring(firstNewLineIndex).Trim('\n');
+				int yearStartIndex = cleanedResp.IndexOf("Year:") + 6;
+				string title = cleanedResp.Substring(7, cleanedResp.IndexOf(",") - 7).Trim();
+				string year = cleanedResp.Substring(yearStartIndex).Trim();
+
+				return new Movie
+				{
+					MovieName = title,
+					Year = int.Parse(year)
+				};
+			}
+		}
+
+		public string getMovieDesc(string responseDesc)
+		{	
+			if(responseDesc.Contains("\n\n"))
+				return responseDesc.Replace("\n\n", string.Empty);
+			return responseDesc;
+		}
+
 	}
+
 }
+

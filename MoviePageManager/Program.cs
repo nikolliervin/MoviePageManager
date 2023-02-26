@@ -35,9 +35,16 @@ namespace MoviePageManager
 
 			var movie = helpers.getMovieObj(choiceObj);
 
-			if (dbManager.getMovies().Count != 0)
-				if (existsMovie.existsMovie(movie.MovieName,movie.Year.ToString()))
-					return;
+			if (dbManager.getMovie().Count != 0)
+				while (existsMovie.existsMovie(movie.MovieName, movie.Year.ToString()))
+				{
+					var newPrompt = helpers.genericPrompt(dbManager.getMovieNames());
+					var altResp = await _openAIService.SendRequestAsync(newPrompt);
+					var newChoiceObj = JsonConvert.DeserializeObject<ResponseBody>(altResp).Choices[0].Text;
+					movie = helpers.getMovieObj(newChoiceObj);
+				}
+					
+					
 
 			
 			dbManager.addMovie(movie);
@@ -45,6 +52,13 @@ namespace MoviePageManager
 			var nextPrompt = helpers.secondPrompt(movie.MovieName, movie.Year.ToString());
 
 			var secondResp = await _openAIService.SendRequestAsync(nextPrompt);
+
+			var descObj = JsonConvert.DeserializeObject<ResponseBody>(secondResp).Choices[0].Text;
+
+			helpers.getMovieDesc(descObj);
+
+
+			
 
 		}
 

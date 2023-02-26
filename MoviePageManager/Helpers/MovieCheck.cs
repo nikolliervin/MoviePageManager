@@ -16,7 +16,7 @@ namespace MoviePageManager.Helpers
 		}
 		public bool existsMovie(string movieName, string year)
 		{
-			List<Movie> movies = _dbManager.getMovies();
+			List<Movie> movies = _dbManager.getMovie();
 
 			foreach(var movie in movies)
 			{
