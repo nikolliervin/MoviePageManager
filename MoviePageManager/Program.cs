@@ -8,6 +8,7 @@ using MoviePageManager.Helpers;
 using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
 using MoviePageManager.Data;
+using MoviePageManager.MovieDB;
 
 namespace MoviePageManager
 {
@@ -18,7 +19,9 @@ namespace MoviePageManager
 		static async Task Main(string[] args)
 		{
 			var openAIKey = Environment.GetEnvironmentVariable("openAIKey");
-			
+			var theMovieDbKey = Environment.GetEnvironmentVariable("tmdbKey");
+
+			var tmdbService = new MovieDBService(theMovieDbKey);
 			var _openAIService = new OpenAIService(openAIKey);
 			var helpers = new Helpers.Helpers();
 			using var dbContext = new MovieDBContext();
@@ -47,7 +50,7 @@ namespace MoviePageManager
 			var descObj = helpers.deserializeToString(secondResp);
 			var desc = helpers.getMovieDesc(descObj);
 
-
+			await tmdbService.getMovieImg(movie.MovieName,movie.Year.ToString());
 			
 
 		}
