@@ -47,7 +47,7 @@ namespace MoviePageManager.MovieDB
 
 			if (!string.IsNullOrEmpty(imagePath))
 			{
-				string imageUrl = $"https://image.tmdb.org/t/p/original/{imagePath}";
+				string imageUrl = $"https://image.tmdb.org/t/p/original{imagePath}";
 				response = await _client.GetAsync(imageUrl);
 				using (Stream stream = await response.Content.ReadAsStreamAsync())
 				using (FileStream fileStream = new FileStream($"{movie}.jpg", FileMode.Create, FileAccess.Write))
