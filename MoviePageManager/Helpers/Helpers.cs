@@ -34,6 +34,13 @@ namespace MoviePageManager.Helpers
 			return prompt;
 		}
 
+		public string getHashTags(string movieName)
+		{
+			var prompt = $"Generate 4 popular instagram movie hashtags, and 3 hashtags about the movie {movieName}";
+
+			return prompt;
+		}
+
 		public Movie getMovieObj(string response)
 		{
 

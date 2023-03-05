@@ -9,6 +9,7 @@ using System.IO;
 using System.Net;
 using System.Text.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 namespace MoviePageManager.MovieDB
 {
@@ -49,6 +50,7 @@ namespace MoviePageManager.MovieDB
 			{
 				string imageUrl = $"https://image.tmdb.org/t/p/original{imagePath}";
 				response = await _client.GetAsync(imageUrl);
+				Thread.Sleep(1000);
 				using (Stream stream = await response.Content.ReadAsStreamAsync())
 				using (FileStream fileStream = new FileStream($"{movie}.jpg", FileMode.Create, FileAccess.Write))
 				{

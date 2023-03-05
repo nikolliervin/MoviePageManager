@@ -46,7 +46,7 @@ namespace MoviePageManager
 					var newChoiceObj = helpers.deserializeToString(altResp);
 					movie = helpers.getMovieObj(newChoiceObj);
 				}
-					
+
 			dbManager.addMovie(movie);
 
 			var nextPrompt = helpers.secondPrompt(movie.MovieName, movie.Year.ToString());
@@ -54,10 +54,13 @@ namespace MoviePageManager
 			var descObj = helpers.deserializeToString(secondResp);
 			var desc = helpers.getMovieDesc(descObj);
 
-			await tmdbService.getMovieImg(movie.MovieName,movie.Year.ToString());
+			var hashtags = await _openAIService.SendRequestAsync(helpers.getHashTags(movie.MovieName));
 
+			await tmdbService.getMovieImg(movie.MovieName, movie.Year.ToString());
+			var movieName = "The Revenant";
+			var movieDesc = "sadsada";
 			steps.Login(user, pass);
-			steps.Upload(movie.MovieName, desc);
+			steps.Upload(movieName, movieDesc, hashtags);
 		}
 
 	

@@ -5,6 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using WindowsInput.Native;
+using WindowsInput;
 
 namespace MoviePageManager.WebDriver
 {
@@ -12,7 +15,7 @@ namespace MoviePageManager.WebDriver
 	{
 
 		private readonly IWebDriver driver;
-
+		
 		public InstagramSteps()
 		{
 			driver = WebDriverInit.CreateWebDriver();
@@ -40,11 +43,10 @@ namespace MoviePageManager.WebDriver
 			}
 			catch { }
 		}
-		public void Upload(string movieName, string desc)
+		public void Upload(string movieName, string desc, string hashtags)
 		{
-			
-			// Navigate to the page for uploading a new post
-	
+			var helpers = new Helpers.Helpers();
+			var movieCaption = helpers.constructPostText(movieName, desc, hashtags);
 
 			var img = $@"{Environment.CurrentDirectory}\{movieName}";
 			// Select the image file to upload
@@ -52,17 +54,39 @@ namespace MoviePageManager.WebDriver
 			create.Click();
 
 			Thread.Sleep(3000);
-
+			
 			IWebElement select = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/button"));
-			select.SendKeys(img);
+			select.Click();
 
+			WinInputSimulator(img);
+			Thread.Sleep(3000);
 			// Click on the "Share" button
-			IWebElement shareButton = driver.FindElement(By.CssSelector("button[type='button'][class='sqdOPyWX7dy3zKF']"));
-			shareButton.Click();
+			IWebElement nextBtn = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/button"));
+			nextBtn.Click();
+			Thread.Sleep(3000);
+			IWebElement nextBtn2 = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/button"));
+			nextBtn2.Click();
 
 			Thread.Sleep(5000);
 			driver.Quit();
 		}
+
+		public void WinInputSimulator(string file)
+		{
+			InputSimulator inputSimulator = new InputSimulator();
+
+			// Wait for the "Open" dialog box to open
+			System.Threading.Thread.Sleep(1000);
+
+			// Click on the "File name" text box
+			inputSimulator.Mouse.MoveMouseTo(100, 100); // Change coordinates to match your system
+			inputSimulator.Mouse.LeftButtonClick();
+
+			// Simulate typing the file path and pressing Enter
+			inputSimulator.Keyboard.TextEntry(file);
+			inputSimulator.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+		}
+
 
 
 	}
