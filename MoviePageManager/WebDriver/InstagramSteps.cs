@@ -68,6 +68,12 @@ namespace MoviePageManager.WebDriver
 			nextBtn2.Click();
 
 			Thread.Sleep(5000);
+			IWebElement captionInput = driver.FindElement(By.CssSelector("textarea[aria-label='Write a caption…']"));
+			captionInput.SendKeys(movieCaption);
+			Thread.Sleep(3000);
+			IWebElement postButton = driver.FindElement(By.CssSelector("button[type='submit']"));
+			postButton.Click();
+			Thread.Sleep(3000);
 			driver.Quit();
 		}
 

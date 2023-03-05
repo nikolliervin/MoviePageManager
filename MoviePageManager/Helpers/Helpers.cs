@@ -40,7 +40,10 @@ namespace MoviePageManager.Helpers
 
 			return prompt;
 		}
-
+		public string constructPostText(string movieName, string movieDesc, string hashtags)
+		{
+			return $"{movieName} - {movieDesc} \n {hashtags}";
+		}
 		public Movie getMovieObj(string response)
 		{
 
