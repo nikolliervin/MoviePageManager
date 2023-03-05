@@ -1,7 +1,7 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 
-public class WebDriverFactory
+public class WebDriverInit
 {
 	public static IWebDriver CreateWebDriver()
 	{

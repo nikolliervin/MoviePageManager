@@ -9,6 +9,7 @@ using System.Net.Http.Headers;
 using Microsoft.EntityFrameworkCore;
 using MoviePageManager.Data;
 using MoviePageManager.MovieDB;
+using MoviePageManager.WebDriver;
 
 namespace MoviePageManager
 {
@@ -20,6 +21,8 @@ namespace MoviePageManager
 		{
 			var openAIKey = Environment.GetEnvironmentVariable("openAIKey");
 			var theMovieDbKey = Environment.GetEnvironmentVariable("tmdbKey");
+			var user = Environment.GetEnvironmentVariable("userIg");
+			var pass = Environment.GetEnvironmentVariable("passIg");
 
 			var tmdbService = new MovieDBService(theMovieDbKey);
 			var _openAIService = new OpenAIService(openAIKey);
@@ -27,6 +30,7 @@ namespace MoviePageManager
 			using var dbContext = new MovieDBContext();
 			var dbManager = new DbManager(dbContext);
 			var existsMovie = new MovieCheck(dbManager);
+			var steps = new InstagramSteps();
 
 			var prompt = helpers.firstPrompt();
 
@@ -51,8 +55,9 @@ namespace MoviePageManager
 			var desc = helpers.getMovieDesc(descObj);
 
 			await tmdbService.getMovieImg(movie.MovieName,movie.Year.ToString());
-			
 
+			steps.Login(user, pass);
+			steps.Upload(movie.MovieName, desc);
 		}
 
 	

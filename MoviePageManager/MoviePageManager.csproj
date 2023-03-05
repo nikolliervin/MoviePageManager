@@ -17,6 +17,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="Python.Runtime" Version="2.7.9" />
     <PackageReference Include="Selenium.WebDriver" Version="4.8.1" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="110.0.5481.7700" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
