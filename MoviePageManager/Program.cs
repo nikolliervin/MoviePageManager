@@ -54,13 +54,12 @@ namespace MoviePageManager
 			var descObj = helpers.deserializeToString(secondResp);
 			var desc = helpers.getMovieDesc(descObj);
 
-			var hashtags = await _openAIService.SendRequestAsync(helpers.getHashTags(movie.MovieName));
+			//var hashtags = await _openAIService.SendRequestAsync(helpers.getHashTags(movie.MovieName));
+			//var deserializedHashtags = helpers.deserializeToString(hashtags);
 
 			await tmdbService.getMovieImg(movie.MovieName, movie.Year.ToString());
-			var movieName = "The Revenant";
-			var movieDesc = "sadsada";
 			steps.Login(user, pass);
-			steps.Upload(movieName, movieDesc, hashtags);
+			steps.Upload(movie.MovieName,desc);
 		}
 
 	

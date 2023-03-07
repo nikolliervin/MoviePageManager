@@ -20,10 +20,15 @@ namespace MoviePageManager.MovieDB
 		private readonly HttpClient _client;
 		public MovieDBService(string apiKey)
 		{
+			HttpClientHandler clientHandler = new HttpClientHandler();
+			clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+
+			
 			_apiKey = apiKey;
 			_client = new HttpClient
 			{
-				BaseAddress = new Uri("https://api.themoviedb.org/3/")
+				BaseAddress = new Uri("https://api.themoviedb.org/3/"),
+				
 			};
 			_client.DefaultRequestHeaders.Accept.Clear();
 			_client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));

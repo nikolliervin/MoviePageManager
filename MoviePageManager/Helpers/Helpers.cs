@@ -19,7 +19,7 @@ namespace MoviePageManager.Helpers
 		}
 		public string secondPrompt(string movieName, string year)
 		{
-			return $"Write a thrilling description about {movieName} of year {year} without spolers";
+			return $"Write a thrilling description about {movieName} of year {year} without spolers. Not longer than three sentences";
 		}
 
 		public string genericPrompt(List<string> movieNames)
@@ -36,13 +36,13 @@ namespace MoviePageManager.Helpers
 
 		public string getHashTags(string movieName)
 		{
-			var prompt = $"Generate 4 popular instagram movie hashtags, and 3 hashtags about the movie {movieName}";
+			var prompt = $"Generate a string of 2 popular instagram movie hashtags, and 2 hashtags about the movie {movieName}";
 
 			return prompt;
 		}
-		public string constructPostText(string movieName, string movieDesc, string hashtags)
+		public string constructPostText(string movieName, string movieDesc)
 		{
-			return $"{movieName} - {movieDesc} \n {hashtags}";
+			return $"{movieName} - {movieDesc}";
 		}
 		public Movie getMovieObj(string response)
 		{

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using WindowsInput.Native;
 using WindowsInput;
+using OpenQA.Selenium.Interactions;
 
 namespace MoviePageManager.WebDriver
 {
@@ -43,16 +44,17 @@ namespace MoviePageManager.WebDriver
 			}
 			catch { }
 		}
-		public void Upload(string movieName, string desc, string hashtags)
+		public void Upload(string movieName, string desc)
 		{
 			var helpers = new Helpers.Helpers();
-			var movieCaption = helpers.constructPostText(movieName, desc, hashtags);
+			var movieCaption = helpers.constructPostText(movieName, desc);
+			var act = new Actions(driver);
 
 			var img = $@"{Environment.CurrentDirectory}\{movieName}";
 			// Select the image file to upload
 			IWebElement create = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[1]/div/div/div/div[1]/div[1]/div[1]/div/div/div/div/div[2]/div[7]"));
 			create.Click();
-
+			
 			Thread.Sleep(3000);
 			
 			IWebElement select = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[2]/div[1]/div/div/div[2]/div/button"));
@@ -63,15 +65,17 @@ namespace MoviePageManager.WebDriver
 			// Click on the "Share" button
 			IWebElement nextBtn = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/button"));
 			nextBtn.Click();
-			Thread.Sleep(3000);
+			Thread.Sleep(4000);
 			IWebElement nextBtn2 = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/button"));
 			nextBtn2.Click();
 
 			Thread.Sleep(5000);
-			IWebElement captionInput = driver.FindElement(By.CssSelector("textarea[aria-label='Write a caption…']"));
-			captionInput.SendKeys(movieCaption);
+			IWebElement captionInput = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[2]/div[2]/div/div/div/div[2]/div[1]/div[1]"));
+			act.MoveToElement(captionInput).Click().Perform();
+
+			act.SendKeys(movieCaption).Perform();
 			Thread.Sleep(3000);
-			IWebElement postButton = driver.FindElement(By.CssSelector("button[type='submit']"));
+			IWebElement postButton = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/button"));
 			postButton.Click();
 			Thread.Sleep(3000);
 			driver.Quit();

@@ -53,7 +53,8 @@ namespace MoviePageManager.OpenAI
 			}
 			else
 			{
-				throw new HttpRequestException($"Request failed with status code {response.StatusCode}: {await response.Content.ReadAsStringAsync()}");
+			
+					throw new HttpRequestException($"Request failed with status code {response.StatusCode}: {await response.Content.ReadAsStringAsync()}");
 			}
 		}
 
