@@ -23,7 +23,7 @@ namespace MoviePageManager.MovieDB
 			HttpClientHandler clientHandler = new HttpClientHandler();
 			clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
-			
+
 			_apiKey = apiKey;
 			_client = new HttpClient
 			{

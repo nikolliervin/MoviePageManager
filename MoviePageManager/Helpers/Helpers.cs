@@ -13,9 +13,9 @@ namespace MoviePageManager.Helpers
 	public class Helpers
 	{
 
-		public string firstPrompt()
+		public string firstPrompt(string? genre = null)
 		{
-			return "Suggest me a random movie and its release year in this format Movie: , Year:";
+			return $"Suggest me a random movie {genre} and its release year in this format Movie: , Year:";
 		}
 		public string secondPrompt(string movieName, string year)
 		{
@@ -89,7 +89,23 @@ namespace MoviePageManager.Helpers
 			return JsonConvert.DeserializeObject<ResponseBody>(response).Choices[0].Text;
 		}
 
+		public string movieOfGenre()
+		{
+			var random = new Random();
+			var index = random.Next(1, MovieGenres.Count - 1);
 
+			return $"Genre: {MovieGenres[index]}";
+		}
+		public Dictionary<int, string> MovieGenres = new Dictionary<int, string>
+		{
+			{ 1, "Drama" },
+			{ 2, "Romance" },
+			{ 3, "Science fiction" },
+			{ 4, "Animated" },
+			{ 5, "Fantasy" },
+			{ 6, "Action" }
+
+		};
 	}
 
 }

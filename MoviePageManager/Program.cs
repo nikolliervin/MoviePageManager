@@ -31,8 +31,8 @@ namespace MoviePageManager
 			var dbManager = new DbManager(dbContext);
 			var existsMovie = new MovieCheck(dbManager);
 			var steps = new InstagramSteps();
-
-			var prompt = helpers.firstPrompt();
+			var genre = helpers.movieOfGenre();
+			var prompt = helpers.firstPrompt(genre);
 
 			var firstResponse = await _openAIService.SendRequestAsync(prompt);
 			var choiceObj = helpers.deserializeToString(firstResponse);

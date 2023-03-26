@@ -63,10 +63,11 @@ namespace MoviePageManager.WebDriver
 			WinInputSimulator(img);
 			Thread.Sleep(3000);
 			// Click on the "Share" button
-			IWebElement nextBtn = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/button"));
+			
+			IWebElement nextBtn = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div"));
 			nextBtn.Click();
 			Thread.Sleep(4000);
-			IWebElement nextBtn2 = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/button"));
+			IWebElement nextBtn2 = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div"));
 			nextBtn2.Click();
 
 			Thread.Sleep(5000);
@@ -75,7 +76,7 @@ namespace MoviePageManager.WebDriver
 
 			act.SendKeys(movieCaption).Perform();
 			Thread.Sleep(3000);
-			IWebElement postButton = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/button"));
+			IWebElement postButton = driver.FindElement(By.XPath("/html/body/div[2]/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/div/div/div[1]/div/div/div[3]/div/div"));
 			postButton.Click();
 			Thread.Sleep(3000);
 			driver.Quit();
