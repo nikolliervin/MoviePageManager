@@ -27,6 +27,6 @@ This application operates seamlessly by integrating with two APIs:
 
 - **MovieDB API**: The application uses the MovieDB API to access movie-related data and generate random movie names, which can be incorporated into your social media posts for entertainment and engagement.
 
-##Disclaimer 
+## Disclaimer 
 
 **Automation:** In this app, Selenium was used for demonstration purposes to make posts on Instagram. It is important to note that using automation tools on social media platforms may go against their policies. We do not recommend or endorse the use of such tools for actual social media management, as it may lead to violations of the platform's terms of service.
